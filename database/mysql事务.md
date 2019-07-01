@@ -3,7 +3,7 @@
 ​       
 
 ①参考书籍:高性能mysql  
-②参考视频:鲁班学院mysql索引以及事务(地址:https://www.bilibili.com/video/av57156557)
+②参考视频:鲁班学院mysql索引以及事务(地址:https://www.bilibili.com/video/av57156557)                 
 ③参考博客:https://blog.csdn.net/qq_38538733/article/details/88902979
 
 
@@ -61,13 +61,18 @@
 
    对于serializable，加锁的方式访问数据库
 
-   对于使用`READ COMMITTED`和`REPEATABLE READ`需要通过ReadView进行判断去读取版本链上的数据
+   对于使用`READ COMMITTED`和`REPEATABLE READ`需要通过`ReadView`进行判断去读取版本链上的数据
+
+   [^注]: update、delete、insert修改数据，才会被分配一个事务id，这个事务id是递增的
+
+   
 
 - Readview
   		活跃的读写事务，把它们的事务id放到一个列表中，我们把这个列表命名为为`m_ids`。
-  - 被访问版本的trx_id比m_ids都要小，该版本可以被当前事务访问。
-  - 被访问版本的`trx_id`比`m_ids`列表中最大的事务id 都要大，该版本的事务在生成`ReadView`后才生成，该版本不可以被当前事务访问
-  -  被访问版本的`trx_id`在m_ids列表的最大事务id，最小事务id之间，
+
+  ​		在read committed(读已提交的)级别下，每次执行select会生成一个readview，然后顺着版本链遍历，直到找到一条版本链的记录，使得它的trx_id不在readview列表m_ids或者等于它本身。那么把这条版本链返回给该事务。如果都没有返回原始的数据。
+
+  ​		在repeatable read(可重复读)级别下， 只会在第一次读取数据才会生成一个ReadView，之后查询不重复生成。顺着版本链查找，找到第一条trx_id等于自己本身的版本链或者第一条比m_ids列表中最小事务id还要小的不活跃事务的版本链。然后这条记录就会被其他事务查询到
 
 
 
@@ -118,3 +123,12 @@
 
 3. 可重复读 repeatable read
    一个事务第一次读到某条记录后，即使其他事务修改了该记录的值并且提交，该事务下次读取这条记录还是第一次读取的值。还是会出现幻读
+
+4. 串行化serializable
+
+
+
+
+
+总结：
+
