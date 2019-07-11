@@ -80,3 +80,5 @@ $data = [
 
       ![1561099753769](C:\Users\aumak\AppData\Roaming\Typora\typora-user-images\1561099753769.png)
 
+9. Session::get('name'); 如果name的值不存在 返回null
+

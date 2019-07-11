@@ -130,10 +130,6 @@ header('Content-Type:application/json;charset=utf-8')
 
 
 
-15.3DES加密踩坑过程
-
-
-
 16.yield应用场景
 ​	生成器(Generatir) ：实现迭代器的方式。函数通过
 ​	
@@ -159,4 +155,19 @@ header('Content-Type:application/json;charset=utf-8')
 
 
 18.sprintf()使用
-​	
+
+
+
+19.  self::class 和static:class 的区别
+
+    	self::class 指向的当前父类的名字
+    	static::class 当前类的名字
+
+
+20. call_user_func_array 的用法
+
+    ```php
+    
+    ```
+
+21. 
