@@ -90,7 +90,7 @@ $array每个元素都使用回调函数$callback()过滤，如果$callback()返�
 
 
 
-10.闭包函数的作用(一次性函数)
+10.闭包函数、匿名函数以及Closure 类
 
 
 
@@ -170,4 +170,5 @@ header('Content-Type:application/json;charset=utf-8')
     
     ```
 
-21. 
+21. list批量设置变量
+     list($val1,$val2,$val3,$val4) = explode($delimiter,$str);

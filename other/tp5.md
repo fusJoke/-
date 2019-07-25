@@ -26,12 +26,26 @@ tp5
 ​	
 二、几个概念
 ​	1.容器是什么的，
-​	
-​	2.facede概念
-​	
+​		app类继承container类，管理各种类
+​	2.facede概念	
+​		可以用调用静态方法的方式去调用类。具体实现的方式
 
-```
-
+```php
+	class Facade{	
+	....
+	//魔术方法 调用一个不存在的静态的方法时候触发
+	public static function __callStatic($method, $params)
+    {
+        return call_user_func_array([static::createFacade(), $method], $params);
+    }
+	...
+	protected static function createFacade($class = '', $args = [], $newInstance = false)
+    {
+        ...
+        return Container::getInstance()->make($class, $args, $newInstance);//从容器返回类的实例
+    }
+        
+    }
 ```
 
 ​	3.依赖注入概念
@@ -75,6 +89,5 @@ tp5
 
 
 
-​	
 ​	
 ​	
