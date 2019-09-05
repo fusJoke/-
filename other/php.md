@@ -172,3 +172,15 @@ header('Content-Type:application/json;charset=utf-8')
 
 21. list批量设置变量
      list($val1,$val2,$val3,$val4) = explode($delimiter,$str);
+
+22. 图片转base64
+
+    ```php
+    $imageInfo = getimagesize($_GPC['img']);
+    $img =  'data:' . $imageInfo['mime'] . ';base64,' . chunk_split(base64_encode(file_get_contents($_GPC['img'])));;
+    ```
+
+23. 判断当前协议是不是HTTPS
+    ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+
+24. 
